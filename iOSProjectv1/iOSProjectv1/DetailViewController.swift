@@ -15,9 +15,6 @@ class DetailViewController: UITableViewController {
     var publiekSanitair: PubliekSanitair!
     
     override func viewDidLoad() {
-        //super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         type_sanit.text = "Type: \(publiekSanitair.type_sanit)"
         type_loc.text = "Locatie: \(publiekSanitair.type_locat)"
         prijs_toeg.text = "Prijs: \(publiekSanitair.prijs_toeg)"
@@ -37,7 +34,6 @@ class DetailViewController: UITableViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     
@@ -49,15 +45,10 @@ class DetailViewController: UITableViewController {
     }
     
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func toonRoute(sender: UIButton) {
+            let query = "?saddr=51.043291,3.722861&daddr=\(publiekSanitair.location.latitude),\(publiekSanitair.location.longitude)&dirflg=w"
+            let path = "http://maps.apple.com/" + query
+            let url = NSURL(string: path)
+            UIApplication.sharedApplication().openURL(url!)
     }
-    */
-
 }

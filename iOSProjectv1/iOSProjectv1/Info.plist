@@ -45,7 +45,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Deze app gebruikt je locatie.</string>
+	<string>Locatie wordt gebruikt om dichtste sanitair te tonen.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

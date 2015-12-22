@@ -3,6 +3,7 @@ import MapKit
 
 class PubliekSanitair
 {
+    let situering: String
     let type_sanit: String
     let type_locat: String
     let prijs_toeg: String
@@ -11,7 +12,8 @@ class PubliekSanitair
     let location: Location
     let address: String
     
-    init(type_sanit: String, type_locat: String, prijs_toeg: String, open7op7da: String, openuren: String, location: Location, address: String){
+    init(situering: String, type_sanit: String, type_locat: String, prijs_toeg: String, open7op7da: String, openuren: String, location: Location, address: String){
+        self.situering = situering
         self.type_sanit = type_sanit
         self.type_locat = type_locat
         self.prijs_toeg = prijs_toeg
@@ -34,6 +36,14 @@ extension PubliekSanitair
         
         guard let simpleDataArray = simpleData.array else{
             throw Service.Error.MissingJsonProperty(name: "no simpleData array")
+        }
+        
+        guard var situering = (simpleDataArray[1]["@text"].stringValue) as? String else{
+            throw Service.Error.MissingJsonProperty(name: "@text for type_sanit")
+        }
+    
+        if situering == ""{
+            situering = "Publiek sanitair"
         }
         
         guard let type_sanit = simpleDataArray[2]["@text"].stringValue as? String  else{
@@ -92,6 +102,6 @@ extension PubliekSanitair
             }
         })
         
-        self.init(type_sanit: type_sanit, type_locat: type_locat, prijs_toeg: prijs_toeg, open7op7da: open7op7da, openuren: openuren, location: Location(latitude: latitudeValue, longitude: longitudeValue), address: locality)
+        self.init(situering: situering, type_sanit: type_sanit, type_locat: type_locat, prijs_toeg: prijs_toeg, open7op7da: open7op7da, openuren: openuren, location: Location(latitude: latitudeValue, longitude: longitudeValue), address: locality)
     }
 }
