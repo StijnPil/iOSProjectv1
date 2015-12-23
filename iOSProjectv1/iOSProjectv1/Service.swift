@@ -1,5 +1,5 @@
 import Foundation
-
+import MapKit
 
 class Service
 {
@@ -20,7 +20,7 @@ class Service
     private init() {
         let path = NSBundle.mainBundle().pathForResource("Properties", ofType: "plist")!
         let properties = NSDictionary(contentsOfFile: path)!
-        url = NSURL(string: properties["baseUrl"] as! String)!
+        url = NSURL(string: properties["baseUrlSanitair"] as! String)!
         session = NSURLSession(configuration: NSURLSessionConfiguration.ephemeralSessionConfiguration())
     }
     
@@ -48,25 +48,11 @@ class Service
             
             
             do {
-//                guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions()) as? NSDictionary else {
-//                    completionHandler(.Failure(.InvalidJsonData(message: "Data does not contain a root object.")))
-//                    return
-//                }
-                
-                //old code
-                //let lots = try json.filter { $0["city"]?["name"] as? String == "Gent" }.map { try ParkingLot(json: $0) }
-                
-                //new code
-                //let lots = try json.map{ try PubliekSanitair(json: $0)}
-    
-                //completionHandler(.Success(lots))
-                
                 let json = JSON(data: data)
                 let placemarks = json["Document"]["Folder"]["Placemark"].array!
-                
         
-                let lots = try placemarks.map{ try PubliekSanitair(json: $0) }
-                completionHandler(.Success(lots))
+                let sanitairs = try placemarks.map{ try PubliekSanitair(json: $0) }
+                completionHandler(.Success(sanitairs))
 
             } catch let error as Error {
                 completionHandler(.Failure(error))
@@ -75,4 +61,6 @@ class Service
             }
         }
     }
+    
+
 }

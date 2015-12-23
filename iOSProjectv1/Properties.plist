@@ -2,7 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>baseUrl</key>
+	<key>baseUrlDistance</key>
+	<string>https://maps.googleapis.com/maps/api/distancematrix/json?</string>
+	<key>baseUrlSanitair</key>
 	<string>http://datatank.stad.gent/4/infrastructuur/publieksanitair</string>
 </dict>
 </plist>

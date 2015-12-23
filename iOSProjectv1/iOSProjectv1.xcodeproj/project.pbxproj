@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		046CDCC21C29BC4000B3771F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046CDCC11C29BC4000B3771F /* MapKit.framework */; };
+		046CDCC41C2AD82500B3771F /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046CDCC31C2AD82500B3771F /* DistanceCalculator.swift */; };
 		04A1B6841C270A2800E7E30F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1B6831C270A2800E7E30F /* AppDelegate.swift */; };
 		04A1B6861C270A2800E7E30F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1B6851C270A2800E7E30F /* ViewController.swift */; };
 		04A1B6891C270A2800E7E30F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A1B6871C270A2800E7E30F /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		046CDCC11C29BC4000B3771F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		046CDCC31C2AD82500B3771F /* DistanceCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
 		04A1B6801C270A2800E7E30F /* iOSProjectv1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSProjectv1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04A1B6831C270A2800E7E30F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04A1B6851C270A2800E7E30F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			children = (
 				04A1B69E1C273EA100E7E30F /* Result.swift */,
 				04A1B6A01C273EB300E7E30F /* Service.swift */,
+				046CDCC31C2AD82500B3771F /* DistanceCalculator.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 				04A1B6841C270A2800E7E30F /* AppDelegate.swift in Sources */,
 				04A1B6991C2733DA00E7E30F /* MasterViewController.swift in Sources */,
 				04A1B6A51C273F8900E7E30F /* Location.swift in Sources */,
+				046CDCC41C2AD82500B3771F /* DistanceCalculator.swift in Sources */,
 				04A1B6A91C28610A00E7E30F /* EmptyDetailViewController.swift in Sources */,
 				04A1B69B1C2735A100E7E30F /* DetailViewController.swift in Sources */,
 				04A1B6A71C2829E300E7E30F /* SwiftyJSON.swift in Sources */,

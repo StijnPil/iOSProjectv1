@@ -10,9 +10,9 @@ class PubliekSanitair
     let open7op7da: String
     let openuren: String
     let location: Location
-    let address: String
+    var distanceToUser: Double
     
-    init(situering: String, type_sanit: String, type_locat: String, prijs_toeg: String, open7op7da: String, openuren: String, location: Location, address: String){
+    init(situering: String, type_sanit: String, type_locat: String, prijs_toeg: String, open7op7da: String, openuren: String, location: Location, distanceToUser: Double){
         self.situering = situering
         self.type_sanit = type_sanit
         self.type_locat = type_locat
@@ -20,7 +20,15 @@ class PubliekSanitair
         self.open7op7da = open7op7da
         self.openuren = openuren
         self.location = location
-        self.address = address
+        self.distanceToUser = distanceToUser
+    }
+    
+    func setDistanceToUser(latitude: Double, longitude: Double, travelMode: String)  {
+        //let userLocation = CLLocation(latitude: latitude, longitude: longitude)
+        let userLocation = CLLocation(latitude: 51.043291, longitude: 3.722861)
+        let sanitairLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
+        let distance = DistanceCalculator.calculateDistance(userLocation, sanitairLocation: sanitairLocation, travelMode: travelMode)
+        distanceToUser = distance
     }
 }
 
@@ -74,34 +82,12 @@ extension PubliekSanitair
         let longitudeValue = (pointArray[0] as NSString).doubleValue
         let latitudeValue = (pointArray[1] as NSString).doubleValue
         
-        //convert longitude and latitude to an address
-        var locality : String = ""
         
-        let longitude :CLLocationDegrees = longitudeValue
-        let latitude :CLLocationDegrees = latitudeValue
+        let userLocation = CLLocation(latitude: 51.043291, longitude: 3.722861)
+        let sanitairLocation = CLLocation(latitude: latitudeValue, longitude: longitudeValue)
+        //let distanceToUser = try DistanceCalculator.calculateDistance(userLocation, sanitairLocation: sanitairLocation, travelMode: "walking")
+        let distanceToUser = 0 as Double;
         
-        let location = CLLocation(latitude: latitude, longitude: longitude) //changed!!!
-        
-        CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
-            print(location)
-            
-            if error != nil {
-                print("Reverse geocoder failed with error" + error!.localizedDescription)
-                return
-            }
-            
-            if placemarks!.count > 0{
-                let pm = placemarks![0] as! CLPlacemark
-                locality = "\(pm.thoroughfare), \(pm.subLocality)"
-                pm.name
-                print(pm.locality)
-            }
-            else {
-                print("Problem with the data received from geocoder")
-                locality = "Failed"
-            }
-        })
-        
-        self.init(situering: situering, type_sanit: type_sanit, type_locat: type_locat, prijs_toeg: prijs_toeg, open7op7da: open7op7da, openuren: openuren, location: Location(latitude: latitudeValue, longitude: longitudeValue), address: locality)
+        self.init(situering: situering, type_sanit: type_sanit, type_locat: type_locat, prijs_toeg: prijs_toeg, open7op7da: open7op7da, openuren: openuren, location: Location(latitude: latitudeValue, longitude: longitudeValue), distanceToUser: distanceToUser)
     }
 }

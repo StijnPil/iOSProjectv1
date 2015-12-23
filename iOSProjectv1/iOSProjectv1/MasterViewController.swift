@@ -15,14 +15,15 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     @IBOutlet var errorView: UIView!
     @IBOutlet weak var errorLabel: UILabel!
     
-    let locationManager = CLLocationManager()
+    var locationManager = CLLocationManager()
+    
     var publiekeSanitairen: [PubliekSanitair] = []
     var currentTask: NSURLSessionTask?
+    var travelMode = "walking"
 
     override func viewDidLoad() {
-        splitViewController!.delegate = self        
-
-        
+        splitViewController!.delegate = self
+        setupLocationSettings()
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         /* Turn off the default generated constraints. */
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +46,9 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         currentTask = Service.sharedService.createFetchTask {
             [unowned self] result in switch result {
             case .Success(let publiekSanitair):
-                self.publiekeSanitairen = publiekSanitair.sort { self.sortByDistance($0.location) < self.sortByDistance($1.location) }
+                //self.publiekeSanitairen = publiekSanitair.sort { self.sortByDistance($0.location) < self.sortByDistance($1.location) }
+                self.calculateDistances(publiekSanitair)
+                self.publiekeSanitairen = publiekSanitair.sort { $0.distanceToUser < $1.distanceToUser }
                 self.tableView.reloadData()
                 self.errorView.hidden = true
             case .Failure(let error):
@@ -55,7 +58,20 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             activityIndicator.stopAnimating()
         }
         currentTask!.resume()
-            setupLocationSettings()
+    }
+    
+    
+    @IBAction func travelByWalking(sender: UIButton) {
+        travelMode = "walking"
+        calculateDistances(publiekeSanitairen)
+        tableView.reloadData()
+    }
+    
+    
+    @IBAction func travelBycar(sender: UIButton) {
+        travelMode = "driving"
+        calculateDistances(publiekeSanitairen)
+        tableView.reloadData()
     }
     
     @IBAction func refresh(sender: UIRefreshControl) {
@@ -63,7 +79,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         currentTask = Service.sharedService.createFetchTask {
             [unowned self] result in switch result {
             case .Success(let publiekSanitair):
-                self.publiekeSanitairen = publiekSanitair.sort { self.sortByDistance($0.location) < self.sortByDistance($1.location) }
+                self.publiekeSanitairen = publiekSanitair.sort { $0.distanceToUser < $1.distanceToUser }
                 self.tableView.reloadData()
                 self.errorView.hidden = true
             case .Failure(let error):
@@ -73,7 +89,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             sender.endRefreshing()
         }
         currentTask!.resume()
-        
     }
     
     private func sortByDistance(location: Location) -> Double{
@@ -84,12 +99,21 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         let location1 = CLLocation(latitude: 51.043291, longitude: 3.722861)
         let location2 = CLLocation(latitude: location.latitude, longitude: location.longitude)
         //Deel de afstand in meters door duizend en afronden op 1 decimaal na de komma
-        return (Double(round(10*(location2.distanceFromLocation(location1))/1000)/10))
+        let distance =  (Double(round(10*(location2.distanceFromLocation(location1))/1000)/10))
+        return distance
     }
     
-    private func setupLocationSettings(){
+    private func calculateDistances(publiekeSanitairen: [PubliekSanitair]) {
+        let degrees = locationManager.location!.coordinate
+
+        for sanitair in publiekeSanitairen{
+             sanitair.setDistanceToUser(degrees.latitude, longitude: degrees.longitude, travelMode: travelMode )
+        }
+    }
+    
+     func setupLocationSettings(){
         //Geodata
-        // Ask for Authorisation from the User.
+        // Ask for Authorisation from the User
         self.locationManager.requestAlwaysAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
@@ -122,7 +146,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         let publiekSanitair = publiekeSanitairen[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         cell.textLabel!.text = publiekSanitair.situering
-        cell.detailTextLabel!.text = "\(sortByDistance(publiekSanitair.location)) km"
+        cell.detailTextLabel!.text = "\(publiekSanitair.distanceToUser) km"
         return cell
     }
     
