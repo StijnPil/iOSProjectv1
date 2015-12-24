@@ -23,6 +23,7 @@ class Service
         url = NSURL(string: properties["baseUrlSanitair"] as! String)!
         session = NSURLSession(configuration: NSURLSessionConfiguration.ephemeralSessionConfiguration())
     }
+
     
     func createFetchTask(completionHandler: Result<[PubliekSanitair]> -> Void) -> NSURLSessionTask {
         return session.dataTaskWithURL(url) {
@@ -30,6 +31,7 @@ class Service
             let completionHandler: Result<[PubliekSanitair]> -> Void = {
                 result in
                 dispatch_async(dispatch_get_main_queue()) {
+                    
                     completionHandler(result)
                 }
             }
@@ -52,6 +54,7 @@ class Service
                 let placemarks = json["Document"]["Folder"]["Placemark"].array!
         
                 let sanitairs = try placemarks.map{ try PubliekSanitair(json: $0) }
+
                 completionHandler(.Success(sanitairs))
 
             } catch let error as Error {

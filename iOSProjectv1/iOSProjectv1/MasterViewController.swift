@@ -24,6 +24,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     override func viewDidLoad() {
         splitViewController!.delegate = self
         setupLocationSettings()
+        
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         /* Turn off the default generated constraints. */
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -41,13 +42,20 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         tableView.addSubview(errorView)
         tableView.addConstraints([c3, c4, c5, c6])
         errorView.hidden = true
-
-        //Lijst met items opvullen
+        
+        /*Lijst met items opvullen
+        Eerst worden alle publieke sanitairen afgehaald via m.b.v. de 'Service' klasse.
+        Daarna wordt de STD (straight line distance = vogelvlucht) berekend tussen de huidige plaats van de gebruiker en het publiek sanitair.
+        Daarna wordt van de 20 dichtste STD sanitairen de werkelijke afstand berekend op basis van de travelMode (te voet / auto) 
+        De reden dat dit ik eerst de STD bereken en daarna pas de werkelijke afstand is omdat als ik voor alle sanitairen direct hun werkelijke afstand
+        wil berekenen dit te veel requests zijn en de applicatie traag werkt.'
+        Als ik voor alle sanitairen */
         currentTask = Service.sharedService.createFetchTask {
             [unowned self] result in switch result {
             case .Success(let publiekSanitair):
-                //self.publiekeSanitairen = publiekSanitair.sort { self.sortByDistance($0.location) < self.sortByDistance($1.location) }
-                self.calculateDistances(publiekSanitair)
+//                let STDpubliekeSanitairen = publiekSanitair.sort { self.sortByStraightLineDistance($0.location) < self.sortByStraightLineDistance($1.location) }
+//                let xNearestSanitairen = self.getXNearestSanitairen(20, sanitairen: STDpubliekeSanitairen)
+                self.calculateTravelModeDistances(publiekSanitair)
                 self.publiekeSanitairen = publiekSanitair.sort { $0.distanceToUser < $1.distanceToUser }
                 self.tableView.reloadData()
                 self.errorView.hidden = true
@@ -60,17 +68,44 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         currentTask!.resume()
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    deinit {
+        print("Deinit")
+        currentTask?.cancel()
+    }
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1;
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return publiekeSanitairen.count
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let publiekSanitair = publiekeSanitairen[indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        cell.textLabel!.text = publiekSanitair.situering
+        cell.detailTextLabel!.text = "\(publiekSanitair.distanceToUser) km"
+        return cell
+    }
+    
     
     @IBAction func travelByWalking(sender: UIButton) {
         travelMode = "walking"
-        calculateDistances(publiekeSanitairen)
+        calculateTravelModeDistances(publiekeSanitairen)
+        self.publiekeSanitairen.sortInPlace { $0.distanceToUser < $1.distanceToUser }
         tableView.reloadData()
     }
     
     
     @IBAction func travelBycar(sender: UIButton) {
         travelMode = "driving"
-        calculateDistances(publiekeSanitairen)
+        calculateTravelModeDistances(publiekeSanitairen)
+        self.publiekeSanitairen.sortInPlace { $0.distanceToUser < $1.distanceToUser }
         tableView.reloadData()
     }
     
@@ -79,6 +114,9 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         currentTask = Service.sharedService.createFetchTask {
             [unowned self] result in switch result {
             case .Success(let publiekSanitair):
+//                let STDpubliekeSanitairen = publiekSanitair.sort { self.sortByStraightLineDistance($0.location) < self.sortByStraightLineDistance($1.location) }
+//                let nearest20Sanitairen = self.getXNearestSanitairen(20, sanitairen: STDpubliekeSanitairen)
+                self.calculateTravelModeDistances(publiekSanitair)
                 self.publiekeSanitairen = publiekSanitair.sort { $0.distanceToUser < $1.distanceToUser }
                 self.tableView.reloadData()
                 self.errorView.hidden = true
@@ -91,7 +129,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         currentTask!.resume()
     }
     
-    private func sortByDistance(location: Location) -> Double{
+    private func sortByStraightLineDistance(location: Location) -> Double{
         //        //real actual location, but not working in simulator because current location in simulator is an Apple Store in California)
         //        let coordinates = locationManager.location?.coordinate
         //        let location1 = CLLocation(latitude: (coordinates?.latitude)!, longitude: (coordinates?.longitude)!)
@@ -103,12 +141,27 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         return distance
     }
     
-    private func calculateDistances(publiekeSanitairen: [PubliekSanitair]) {
-        let degrees = locationManager.location!.coordinate
+    private func calculateTravelModeDistances(publiekeSanitairen: [PubliekSanitair]) {
+//        //real actual location, but not working in simulator because current location in simulator is an Apple Store in California)
+//        let degrees = locationManager.location!.coordinate
+//        let userLocation = CLLocation(latitude: (degrees.latitude), longitude: (degrees.longitude))
+        let userLocation = CLLocation(latitude: 51.043291, longitude: 3.722861)
 
-        for sanitair in publiekeSanitairen{
-             sanitair.setDistanceToUser(degrees.latitude, longitude: degrees.longitude, travelMode: travelMode )
+        let distances : [Double]! = DistanceCalculator.calculateDistance(userLocation, sanitairs: publiekeSanitairen, travelMode: travelMode)
+        print(distances.count)
+        print(publiekeSanitairen.count)
+        
+        for index in 0...(distances.count-1){
+            publiekeSanitairen[index].distanceToUser = distances[index]
         }
+    }
+    
+    private func getXNearestSanitairen(x: Int, sanitairen: [PubliekSanitair]) -> [PubliekSanitair]{
+        var xSanitairen : [PubliekSanitair]! = []
+        for index in 0...(x-1){
+            xSanitairen.append(sanitairen[index])
+        }
+        return xSanitairen
     }
     
      func setupLocationSettings(){
@@ -128,32 +181,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
 
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1;
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return publiekeSanitairen.count
-    }
-
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let publiekSanitair = publiekeSanitairen[indexPath.row]
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-        cell.textLabel!.text = publiekSanitair.situering
-        cell.detailTextLabel!.text = "\(publiekSanitair.distanceToUser) km"
-        return cell
-    }
-    
-    deinit {
-        print("Deinit")
-        currentTask?.cancel()
-    }
     
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
         return true
