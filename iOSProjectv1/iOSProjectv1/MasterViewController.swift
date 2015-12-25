@@ -45,16 +45,10 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         
         /*Lijst met items opvullen
         Eerst worden alle publieke sanitairen afgehaald via m.b.v. de 'Service' klasse.
-        Daarna wordt de STD (straight line distance = vogelvlucht) berekend tussen de huidige plaats van de gebruiker en het publiek sanitair.
-        Daarna wordt van de 20 dichtste STD sanitairen de werkelijke afstand berekend op basis van de travelMode (te voet / auto) 
-        De reden dat dit ik eerst de STD bereken en daarna pas de werkelijke afstand is omdat als ik voor alle sanitairen direct hun werkelijke afstand
-        wil berekenen dit te veel requests zijn en de applicatie traag werkt.'
-        Als ik voor alle sanitairen */
+        Daarna wordt de afstand berekend van de huidige locatie van de persoon tot elk sanitair en geordend van dicht naar ver*/
         currentTask = Service.sharedService.createFetchTask {
             [unowned self] result in switch result {
             case .Success(let publiekSanitair):
-//                let STDpubliekeSanitairen = publiekSanitair.sort { self.sortByStraightLineDistance($0.location) < self.sortByStraightLineDistance($1.location) }
-//                let xNearestSanitairen = self.getXNearestSanitairen(20, sanitairen: STDpubliekeSanitairen)
                 self.calculateTravelModeDistances(publiekSanitair)
                 self.publiekeSanitairen = publiekSanitair.sort { $0.distanceToUser < $1.distanceToUser }
                 self.tableView.reloadData()
@@ -114,8 +108,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         currentTask = Service.sharedService.createFetchTask {
             [unowned self] result in switch result {
             case .Success(let publiekSanitair):
-//                let STDpubliekeSanitairen = publiekSanitair.sort { self.sortByStraightLineDistance($0.location) < self.sortByStraightLineDistance($1.location) }
-//                let nearest20Sanitairen = self.getXNearestSanitairen(20, sanitairen: STDpubliekeSanitairen)
                 self.calculateTravelModeDistances(publiekSanitair)
                 self.publiekeSanitairen = publiekSanitair.sort { $0.distanceToUser < $1.distanceToUser }
                 self.tableView.reloadData()
@@ -129,40 +121,23 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         currentTask!.resume()
     }
     
-    private func sortByStraightLineDistance(location: Location) -> Double{
-        //        //real actual location, but not working in simulator because current location in simulator is an Apple Store in California)
-        //        let coordinates = locationManager.location?.coordinate
-        //        let location1 = CLLocation(latitude: (coordinates?.latitude)!, longitude: (coordinates?.longitude)!)
-        
-        let location1 = CLLocation(latitude: 51.043291, longitude: 3.722861)
-        let location2 = CLLocation(latitude: location.latitude, longitude: location.longitude)
-        //Deel de afstand in meters door duizend en afronden op 1 decimaal na de komma
-        let distance =  (Double(round(10*(location2.distanceFromLocation(location1))/1000)/10))
-        return distance
-    }
-    
     private func calculateTravelModeDistances(publiekeSanitairen: [PubliekSanitair]) {
 //        //real actual location, but not working in simulator because current location in simulator is an Apple Store in California)
+//        //would work if you run the app on a real phone
 //        let degrees = locationManager.location!.coordinate
 //        let userLocation = CLLocation(latitude: (degrees.latitude), longitude: (degrees.longitude))
+        
+//      Simulated location: coordinates from Kanunnikstraat 42, Gent
         let userLocation = CLLocation(latitude: 51.043291, longitude: 3.722861)
 
         let distances : [Double]! = DistanceCalculator.calculateDistance(userLocation, sanitairs: publiekeSanitairen, travelMode: travelMode)
-        print(distances.count)
-        print(publiekeSanitairen.count)
         
         for index in 0...(distances.count-1){
             publiekeSanitairen[index].distanceToUser = distances[index]
         }
     }
     
-    private func getXNearestSanitairen(x: Int, sanitairen: [PubliekSanitair]) -> [PubliekSanitair]{
-        var xSanitairen : [PubliekSanitair]! = []
-        for index in 0...(x-1){
-            xSanitairen.append(sanitairen[index])
-        }
-        return xSanitairen
-    }
+
     
      func setupLocationSettings(){
         //Geodata
@@ -181,7 +156,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
 
-
     
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
         return true
@@ -192,5 +166,12 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         let detail = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
         let selectedPubliekSanitair = publiekeSanitairen[tableView.indexPathForSelectedRow!.row]
         detail.publiekSanitair = selectedPubliekSanitair
+        let coordinates = locationManager.location?.coordinate
+        detail.userLocation = Location(latitude: (coordinates?.latitude)!, longitude: (coordinates?.longitude)!)
+        if travelMode == "walking"{
+            detail.travelMode = "w"
+        } else{
+            detail.travelMode = "d"
+        }
     }
 }

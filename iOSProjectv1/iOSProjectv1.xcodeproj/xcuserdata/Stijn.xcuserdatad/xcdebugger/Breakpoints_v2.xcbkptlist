@@ -86,31 +86,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iOSProjectv1/MasterViewController.swift"
-            timestampString = "472647052.009738"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
-            landmarkName = "getXNearestSanitairen(_:sanitairen:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSProjectv1/MasterViewController.swift"
-            timestampString = "472647052.009738"
+            timestampString = "472747467.812307"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "calculateTravelModeDistances(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,12 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSProjectv1/DistanceCalculator.swift"
-            timestampString = "472651480.284275"
+            timestampString = "472744299.8718"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "performDistanceRequest(_:locationCoordinates:travelMode:testCounter:)"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "performDistanceRequest(_:locationCoordinates:travelMode:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -138,28 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSProjectv1/DistanceCalculator.swift"
-            timestampString = "472651480.284275"
+            timestampString = "472744299.8718"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "performDistanceRequest(_:locationCoordinates:travelMode:testCounter:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iOSProjectv1/DistanceCalculator.swift"
-            timestampString = "472651480.284275"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "performDistanceRequest(_:locationCoordinates:travelMode:testCounter:)"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "performDistanceRequest(_:locationCoordinates:travelMode:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -170,12 +138,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSProjectv1/DistanceCalculator.swift"
-            timestampString = "472651480.284275"
+            timestampString = "472744299.8718"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "performDistanceRequest(_:locationCoordinates:travelMode:testCounter:)"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "performDistanceRequest(_:locationCoordinates:travelMode:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -186,12 +154,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSProjectv1/DistanceCalculator.swift"
-            timestampString = "472651480.284275"
+            timestampString = "472744299.8718"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "performDistanceRequest(_:locationCoordinates:travelMode:testCounter:)"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "performDistanceRequest(_:locationCoordinates:travelMode:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iOSProjectv1/DistanceCalculator.swift"
+            timestampString = "472744299.8718"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "calculateDistance(_:sanitairs:travelMode:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iOSProjectv1/DistanceCalculator.swift"
+            timestampString = "472742969.493586"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "calculateDistance(_:sanitairs:travelMode:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iOSProjectv1/DistanceCalculator.swift"
+            timestampString = "472744299.8718"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "calculateDistance(_:sanitairs:travelMode:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

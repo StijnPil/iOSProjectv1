@@ -18,14 +18,14 @@
                             <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="moO-Xk-Jgn">
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="moO-Xk-Jgn">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
                                     <state key="normal" title="Te voet"/>
                                     <connections>
                                         <action selector="travelByWalking:" destination="VSG-Oh-fU2" eventType="touchUpInside" id="aLT-rh-Q6t"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcR-7j-Rw3">
+                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcR-7j-Rw3">
                                     <rect key="frame" x="300" y="0.0" width="300" height="44"/>
                                     <state key="normal" title="Auto"/>
                                     <connections>
@@ -325,6 +325,7 @@
                                                     <rect key="frame" x="18" y="8" width="74" height="30"/>
                                                     <state key="normal" title="Toon route"/>
                                                     <connections>
+                                                        <action selector="showRoute:" destination="f5E-6M-4V8" eventType="touchUpInside" id="dyB-ln-mrW"/>
                                                         <action selector="toonRoute:" destination="f5E-6M-4V8" eventType="touchUpInside" id="FPB-2o-quw"/>
                                                     </connections>
                                                 </button>

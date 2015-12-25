@@ -13,6 +13,8 @@ class DetailViewController: UITableViewController {
     @IBOutlet weak var mapView: MKMapView!
     
     var publiekSanitair: PubliekSanitair!
+    var userLocation: Location!
+    var travelMode: String!
     
     override func viewDidLoad() {
         type_sanit.text = "Type: \(publiekSanitair.type_sanit)"
@@ -35,8 +37,7 @@ class DetailViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    
+
 
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         if !splitViewController!.collapsed {
@@ -44,11 +45,21 @@ class DetailViewController: UITableViewController {
         }
     }
     
-    
-    @IBAction func toonRoute(sender: UIButton) {
-            let query = "?saddr=51.043291,3.722861&daddr=\(publiekSanitair.location.latitude),\(publiekSanitair.location.longitude)&dirflg=w"
-            let path = "http://maps.apple.com/" + query
-            let url = NSURL(string: path)
-            UIApplication.sharedApplication().openURL(url!)
+    @IBAction func showRoute(sender: UIButton) {
+        let saddr = "?saddr=\(userLocation.latitude),\(userLocation.longitude)"
+        let daddr = "daddr=\(publiekSanitair.location.latitude),\(publiekSanitair.location.longitude)"
+        let dirflg = "dirflg=\(travelMode)"
+        
+        var path = "http://maps.apple.com/"
+        path.appendContentsOf(saddr)
+        path.appendContentsOf("&")
+        path.appendContentsOf(daddr)
+        path.appendContentsOf("&")
+        path.appendContentsOf(dirflg)
+        
+        let url = NSURL(string: path)
+        UIApplication.sharedApplication().openURL(url!)
     }
 }
+
+
