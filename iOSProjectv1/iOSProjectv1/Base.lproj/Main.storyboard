@@ -326,7 +326,6 @@
                                                     <state key="normal" title="Toon route"/>
                                                     <connections>
                                                         <action selector="showRoute:" destination="f5E-6M-4V8" eventType="touchUpInside" id="dyB-ln-mrW"/>
-                                                        <action selector="toonRoute:" destination="f5E-6M-4V8" eventType="touchUpInside" id="FPB-2o-quw"/>
                                                     </connections>
                                                 </button>
                                             </subviews>

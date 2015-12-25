@@ -12,6 +12,11 @@ import CoreLocation
 
 class MasterViewController: UITableViewController, UISplitViewControllerDelegate, CLLocationManagerDelegate {
     
+    enum Error: ErrorType
+    {
+        case currentLocationNotRetrieved(message: String?)
+    }
+    
     @IBOutlet var errorView: UIView!
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -166,8 +171,11 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         let detail = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
         let selectedPubliekSanitair = publiekeSanitairen[tableView.indexPathForSelectedRow!.row]
         detail.publiekSanitair = selectedPubliekSanitair
-        let coordinates = locationManager.location?.coordinate
-        detail.userLocation = Location(latitude: (coordinates?.latitude)!, longitude: (coordinates?.longitude)!)
+       //let coordinates = locationManager.location?.coordinate
+        
+        //detail.userLocation = Location(latitude: (coordinates?.latitude)!, longitude: (coordinates?.longitude)!)
+        detail.userLocation = Location(latitude: 51.043291, longitude: 3.722861)
+
         if travelMode == "walking"{
             detail.travelMode = "w"
         } else{

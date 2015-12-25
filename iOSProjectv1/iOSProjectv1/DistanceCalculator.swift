@@ -47,7 +47,7 @@ class DistanceCalculator{
         requestURL.appendContentsOf("&")
         requestURL.appendContentsOf("mode=\(travelMode)")
         requestURL.appendContentsOf("&")
-        requestURL.appendContentsOf("key=AIzaSyBvcpFTa2-dbH2ya9WpbW4X0fn2utgtXhc")
+        requestURL.appendContentsOf("key=AIzaSyD5r4KKSGbt2g8LTflgJQtKpU1c_RnQsTA")
         
         let endpoint = NSURL(string: requestURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)!
         

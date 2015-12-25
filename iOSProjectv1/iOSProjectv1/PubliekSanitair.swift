@@ -22,15 +22,6 @@ class PubliekSanitair
         self.location = location
         self.distanceToUser = distanceToUser
     }
-    
-//    func setDistanceToUser(latitude: Double, longitude: Double, travelMode: String)  {
-//        //let userLocation = CLLocation(latitude: latitude, longitude: longitude)
-//        let userLocation = CLLocation(latitude: 51.043291, longitude: 3.722861)
-//        let sanitairLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
-//        let distance = DistanceCalculator.calculateDistance(userLocation, sanitairLocation: sanitairLocation, travelMode: travelMode)
-//        distanceToUser = distance
-//    }
-    
 }
 
 //extension PubliekSanitair: CustomStringConvertible { }
@@ -83,10 +74,6 @@ extension PubliekSanitair
         let longitudeValue = (pointArray[0] as NSString).doubleValue
         let latitudeValue = (pointArray[1] as NSString).doubleValue
         
-        
-        //let userLocation = CLLocation(latitude: 51.043291, longitude: 3.722861)
-        //let sanitairLocation = CLLocation(latitude: latitudeValue, longitude: longitudeValue)
-        //let distanceToUser = try DistanceCalculator.calculateDistance(userLocation, sanitairLocation: sanitairLocation, travelMode: "walking")
         let distanceToUser = 0.1
         
         self.init(situering: situering, type_sanit: type_sanit, type_locat: type_locat, prijs_toeg: prijs_toeg, open7op7da: open7op7da, openuren: openuren, location: Location(latitude: latitudeValue, longitude: longitudeValue), distanceToUser: distanceToUser)
