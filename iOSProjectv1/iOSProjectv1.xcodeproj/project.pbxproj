@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040CBD441C2F0913003246AD /* Kanunnikstraat 44, Gent , België.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 040CBD431C2F0913003246AD /* Kanunnikstraat 44, Gent , België.gpx */; };
 		046CDCC21C29BC4000B3771F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046CDCC11C29BC4000B3771F /* MapKit.framework */; };
 		046CDCC41C2AD82500B3771F /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046CDCC31C2AD82500B3771F /* DistanceCalculator.swift */; };
 		04A1B6841C270A2800E7E30F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1B6831C270A2800E7E30F /* AppDelegate.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		040CBD431C2F0913003246AD /* Kanunnikstraat 44, Gent , België.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Kanunnikstraat 44, Gent , België.gpx"; sourceTree = "<group>"; };
 		046CDCC11C29BC4000B3771F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		046CDCC31C2AD82500B3771F /* DistanceCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
 		04A1B6801C270A2800E7E30F /* iOSProjectv1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSProjectv1.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +63,7 @@
 		04A1B6771C270A2800E7E30F = {
 			isa = PBXGroup;
 			children = (
+				040CBD431C2F0913003246AD /* Kanunnikstraat 44, Gent , België.gpx */,
 				046CDCC11C29BC4000B3771F /* MapKit.framework */,
 				04A1B6821C270A2800E7E30F /* iOSProjectv1 */,
 				04A1B6811C270A2800E7E30F /* Products */,
@@ -189,6 +192,7 @@
 				04A1B68B1C270A2800E7E30F /* Assets.xcassets in Resources */,
 				04A1B6891C270A2800E7E30F /* Main.storyboard in Resources */,
 				04A1B69D1C2736DA00E7E30F /* Properties.plist in Resources */,
+				040CBD441C2F0913003246AD /* Kanunnikstraat 44, Gent , België.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

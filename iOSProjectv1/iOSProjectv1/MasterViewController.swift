@@ -28,7 +28,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
 
     override func viewDidLoad() {
         splitViewController!.delegate = self
-        setupLocationSettings()
         
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         /* Turn off the default generated constraints. */
@@ -65,6 +64,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             activityIndicator.stopAnimating()
         }
         currentTask!.resume()
+               setupLocationSettings()
     }
     
     override func didReceiveMemoryWarning() {
@@ -148,10 +148,12 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         //Geodata
         // Ask for Authorisation from the User
         self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startMonitoringSignificantLocationChanges()
             locationManager.startUpdatingLocation()
         }
     }
@@ -171,10 +173,10 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         let detail = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
         let selectedPubliekSanitair = publiekeSanitairen[tableView.indexPathForSelectedRow!.row]
         detail.publiekSanitair = selectedPubliekSanitair
-       //let coordinates = locationManager.location?.coordinate
+       let coordinates = locationManager.location?.coordinate
         
-        //detail.userLocation = Location(latitude: (coordinates?.latitude)!, longitude: (coordinates?.longitude)!)
-        detail.userLocation = Location(latitude: 51.043291, longitude: 3.722861)
+        detail.userLocation = Location(latitude: (coordinates?.latitude)!, longitude: (coordinates?.longitude)!)
+        //detail.userLocation = Location(latitude: 51.043291, longitude: 3.722861)
 
         if travelMode == "walking"{
             detail.travelMode = "w"

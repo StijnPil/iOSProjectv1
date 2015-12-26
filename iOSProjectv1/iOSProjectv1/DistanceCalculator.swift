@@ -22,7 +22,7 @@ class DistanceCalculator{
         for sanitair in sanitairs{
             location = sanitair.location;
             
-            if destinationCoordinates.characters.count > 750{
+            if destinationCoordinates.characters.count > 1700{
                 destinationCoordinates.appendContentsOf("|\(location.latitude),\(location.longitude)")
                 distances.appendContentsOf(performDistanceRequest(originsUrl, locationCoordinates: destinationCoordinates, travelMode: travelMode))
                 destinationCoordinates = ""
@@ -47,7 +47,7 @@ class DistanceCalculator{
         requestURL.appendContentsOf("&")
         requestURL.appendContentsOf("mode=\(travelMode)")
         requestURL.appendContentsOf("&")
-        requestURL.appendContentsOf("key=AIzaSyD5r4KKSGbt2g8LTflgJQtKpU1c_RnQsTA")
+        requestURL.appendContentsOf("key=AIzaSyBvcpFTa2-dbH2ya9WpbW4X0fn2utgtXhc")
         
         let endpoint = NSURL(string: requestURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)!
         
