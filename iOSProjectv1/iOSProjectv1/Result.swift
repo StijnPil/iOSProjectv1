@@ -1,5 +1,5 @@
 enum Result<T>
 {
     case Success(T)
-    case Failure(Service.Error)
+    case Failure(Error)
 }

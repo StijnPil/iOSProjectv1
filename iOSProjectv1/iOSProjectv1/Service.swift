@@ -3,20 +3,11 @@ import MapKit
 
 class Service
 {
-    enum Error: ErrorType
-    {
-        case InvalidJsonData(message: String?)
-        case MissingJsonProperty(name: String)
-        case MissingResponseData
-        case NetworkError(message: String?)
-        case UnexpectedStatusCode(code: Int)
-    }
-    
     static let sharedService = Service()
     
-    private let url: NSURL
+    private var url: NSURL
     private let session: NSURLSession
-    
+
     private init() {
         let path = NSBundle.mainBundle().pathForResource("Properties", ofType: "plist")!
         let properties = NSDictionary(contentsOfFile: path)!

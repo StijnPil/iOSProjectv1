@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		040CBD441C2F0913003246AD /* Kanunnikstraat 44, Gent , België.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 040CBD431C2F0913003246AD /* Kanunnikstraat 44, Gent , België.gpx */; };
+		040CBD481C2F1AE1003246AD /* OSLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 040CBD471C2F1AE1003246AD /* OSLogo.png */; };
+		042FDA111C492E8700FC9E6D /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FDA101C492E8700FC9E6D /* Error.swift */; };
+		042FDA131C4942E900FC9E6D /* GoogleMapsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FDA121C4942E900FC9E6D /* GoogleMapsAPI.swift */; };
 		046CDCC21C29BC4000B3771F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046CDCC11C29BC4000B3771F /* MapKit.framework */; };
 		046CDCC41C2AD82500B3771F /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046CDCC31C2AD82500B3771F /* DistanceCalculator.swift */; };
 		04A1B6841C270A2800E7E30F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1B6831C270A2800E7E30F /* AppDelegate.swift */; };
@@ -28,6 +31,9 @@
 
 /* Begin PBXFileReference section */
 		040CBD431C2F0913003246AD /* Kanunnikstraat 44, Gent , België.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Kanunnikstraat 44, Gent , België.gpx"; sourceTree = "<group>"; };
+		040CBD471C2F1AE1003246AD /* OSLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OSLogo.png; sourceTree = "<group>"; };
+		042FDA101C492E8700FC9E6D /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		042FDA121C4942E900FC9E6D /* GoogleMapsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleMapsAPI.swift; sourceTree = "<group>"; };
 		046CDCC11C29BC4000B3771F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		046CDCC31C2AD82500B3771F /* DistanceCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
 		04A1B6801C270A2800E7E30F /* iOSProjectv1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSProjectv1.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +96,7 @@
 				04A1B6871C270A2800E7E30F /* Main.storyboard */,
 				04A1B68A1C270A2800E7E30F /* Assets.xcassets */,
 				04A1B68C1C270A2800E7E30F /* LaunchScreen.storyboard */,
+				040CBD471C2F1AE1003246AD /* OSLogo.png */,
 				04A1B68F1C270A2800E7E30F /* Info.plist */,
 				04A1B69C1C2736DA00E7E30F /* Properties.plist */,
 			);
@@ -111,6 +118,8 @@
 				04A1B69E1C273EA100E7E30F /* Result.swift */,
 				04A1B6A01C273EB300E7E30F /* Service.swift */,
 				046CDCC31C2AD82500B3771F /* DistanceCalculator.swift */,
+				042FDA101C492E8700FC9E6D /* Error.swift */,
+				042FDA121C4942E900FC9E6D /* GoogleMapsAPI.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -188,6 +197,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				040CBD481C2F1AE1003246AD /* OSLogo.png in Resources */,
 				04A1B68E1C270A2800E7E30F /* LaunchScreen.storyboard in Resources */,
 				04A1B68B1C270A2800E7E30F /* Assets.xcassets in Resources */,
 				04A1B6891C270A2800E7E30F /* Main.storyboard in Resources */,
@@ -205,8 +215,10 @@
 			files = (
 				04A1B6861C270A2800E7E30F /* ViewController.swift in Sources */,
 				04A1B69F1C273EA100E7E30F /* Result.swift in Sources */,
+				042FDA131C4942E900FC9E6D /* GoogleMapsAPI.swift in Sources */,
 				04A1B6841C270A2800E7E30F /* AppDelegate.swift in Sources */,
 				04A1B6991C2733DA00E7E30F /* MasterViewController.swift in Sources */,
+				042FDA111C492E8700FC9E6D /* Error.swift in Sources */,
 				04A1B6A51C273F8900E7E30F /* Location.swift in Sources */,
 				046CDCC41C2AD82500B3771F /* DistanceCalculator.swift in Sources */,
 				04A1B6A91C28610A00E7E30F /* EmptyDetailViewController.swift in Sources */,
@@ -325,7 +337,8 @@
 		04A1B6931C270A2800E7E30F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				INFOPLIST_FILE = iOSProjectv1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = stijn.iOSProjectv1;
@@ -336,7 +349,8 @@
 		04A1B6941C270A2800E7E30F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				INFOPLIST_FILE = iOSProjectv1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = stijn.iOSProjectv1;

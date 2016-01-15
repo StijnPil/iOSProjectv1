@@ -28,6 +28,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
 
     override func viewDidLoad() {
         splitViewController!.delegate = self
+        setupLocationSettings()
         
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         /* Turn off the default generated constraints. */
@@ -48,7 +49,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         errorView.hidden = true
         
         /*Lijst met items opvullen
-        Eerst worden alle publieke sanitairen afgehaald via m.b.v. de 'Service' klasse.
+        Eerst worden alle publieke sanitairen afgehaald m.b.v. de 'Service' klasse.
         Daarna wordt de afstand berekend van de huidige locatie van de persoon tot elk sanitair en geordend van dicht naar ver*/
         currentTask = Service.sharedService.createFetchTask {
             [unowned self] result in switch result {
@@ -64,7 +65,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             activityIndicator.stopAnimating()
         }
         currentTask!.resume()
-               setupLocationSettings()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -133,7 +134,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
 //        let userLocation = CLLocation(latitude: (degrees.latitude), longitude: (degrees.longitude))
         
 //      Simulated location: coordinates from Kanunnikstraat 42, Gent
-        let userLocation = CLLocation(latitude: 51.043291, longitude: 3.722861)
+       let userLocation = CLLocation(latitude: 51.043291, longitude: 3.722861)
 
         let distances : [Double]! = DistanceCalculator.calculateDistance(userLocation, sanitairs: publiekeSanitairen, travelMode: travelMode)
         

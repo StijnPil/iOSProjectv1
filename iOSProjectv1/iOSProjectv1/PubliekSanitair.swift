@@ -31,15 +31,15 @@ extension PubliekSanitair
     convenience init(json: JSON) throws {
         
         guard let simpleData = json["ExtendedData"]["SchemaData"]["SimpleData"] as? JSON else{
-            throw Service.Error.MissingJsonProperty(name: "SimpleData")
+            throw Error.MissingJsonProperty(name: "SimpleData")
         }
         
         guard let simpleDataArray = simpleData.array else{
-            throw Service.Error.MissingJsonProperty(name: "no simpleData array")
+            throw Error.MissingJsonProperty(name: "no simpleData array")
         }
         
         guard var situering = (simpleDataArray[1]["@text"].stringValue) as? String else{
-            throw Service.Error.MissingJsonProperty(name: "@text for type_sanit")
+            throw Error.MissingJsonProperty(name: "@text for type_sanit")
         }
     
         if situering == ""{
@@ -47,27 +47,27 @@ extension PubliekSanitair
         }
         
         guard let type_sanit = simpleDataArray[2]["@text"].stringValue as? String  else{
-            throw Service.Error.MissingJsonProperty(name: "@text for type_sanit")
+            throw Error.MissingJsonProperty(name: "@text for type_sanit")
         }
 
         guard let type_locat = simpleDataArray[3]["@text"].stringValue as? String else{
-            throw Service.Error.MissingJsonProperty(name: "@text for type_locat")
+            throw Error.MissingJsonProperty(name: "@text for type_locat")
         }
         
         guard let prijs_toeg = simpleDataArray[4]["@text"].stringValue as? String else{
-            throw Service.Error.MissingJsonProperty(name: "@text for prijs_toeg")
+            throw Error.MissingJsonProperty(name: "@text for prijs_toeg")
         }
         
         guard let open7op7da = simpleDataArray[5]["@text"].stringValue as? String else{
-            throw Service.Error.MissingJsonProperty(name: "@text for open7op7da")
+            throw Error.MissingJsonProperty(name: "@text for open7op7da")
         }
         
         guard let openuren = simpleDataArray[6]["@text"].stringValue as? String else{
-            throw Service.Error.MissingJsonProperty(name: "@text for openuren")
+            throw Error.MissingJsonProperty(name: "@text for openuren")
         }
         
         guard let point = json["Point"]["coordinates"]["@text"].stringValue as? String else{
-            throw Service.Error.MissingJsonProperty(name: "@text for coordinates in Point")
+            throw Error.MissingJsonProperty(name: "@text for coordinates in Point")
         }
         
         let pointArray = point.componentsSeparatedByString(",")

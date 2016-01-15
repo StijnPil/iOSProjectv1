@@ -17,11 +17,13 @@ class DistanceCalculator{
         var destinationCoordinates : String = ""
         var distances: [Double] = []
         
-        //Coordinaten van elk publiek sanitoer toevoegen aan destinations
+        //Coordinaten van elk publiek sanitair toevoegen aan destinations
         var location: Location
         for sanitair in sanitairs{
             location = sanitair.location;
             
+            //Een request url naar de Google Distance Matrix API mag niet groter zijn dan 2000 tekens.
+            //Uit voorzorg wordt bij meer dan 1700 tekens de request al opgesplitst
             if destinationCoordinates.characters.count > 1700{
                 destinationCoordinates.appendContentsOf("|\(location.latitude),\(location.longitude)")
                 distances.appendContentsOf(performDistanceRequest(originsUrl, locationCoordinates: destinationCoordinates, travelMode: travelMode))
