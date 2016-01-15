@@ -128,22 +128,28 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     }
     
     private func calculateTravelModeDistances(publiekeSanitairen: [PubliekSanitair]) {
-//        //real actual location, but not working in simulator because current location in simulator is an Apple Store in California)
-//        //would work if you run the app on a real phone
+        
+//      STATISCHE  LOCATIE
+//      Om al het onderstaande werk bij 'GESIMULEERDE LOCATIE' te vermijden, kun je best onderstaande code laten staan, indien je toch echt de locatie van het 
+//      apparaat wil krijgen moet je het onderstaande lijntje code in commentaar plaatsen
+//      Simulated location: coordinates from Kanunnikstraat 44, Gent
+        let userLocation = CLLocation(latitude: 51.043232, longitude: 3.722923)
+        
+//      GESIMULEERDE LOCATIE
+//        //Als je de gesimuleerde locatie van de simulator wil gebruiken moet je dit instellen onder 'Debug' -> 'Simulate location'
+//        //Omdat de app  je gesimuleerde locatie al wil opvragen, nog voor je de tijd hebt om dit in te stellen moet je de app
+//        //in debug-mode runnen en het enige wat je hoeft te doen is het bij het onderstaande lijntje code een break point plaatsen,
+//        //de gesimuleerde locatie instellen en daarna mag je de debug-mode weer afleggen
 //        let degrees = locationManager.location!.coordinate
 //        let userLocation = CLLocation(latitude: (degrees.latitude), longitude: (degrees.longitude))
         
-//      Simulated location: coordinates from Kanunnikstraat 42, Gent
-       let userLocation = CLLocation(latitude: 51.043291, longitude: 3.722861)
-
         let distances : [Double]! = DistanceCalculator.calculateDistance(userLocation, sanitairs: publiekeSanitairen, travelMode: travelMode)
         
+        //Stelt de afstand in tot elk publiek sanitair op basis van de huidige locatie
         for index in 0...(distances.count-1){
             publiekeSanitairen[index].distanceToUser = distances[index]
         }
     }
-    
-
     
      func setupLocationSettings(){
         //Geodata
